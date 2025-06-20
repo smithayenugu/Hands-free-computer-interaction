@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hands-Free Interaction</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const API_BASE_URL = "http://127.0.0.1:5000";  
+
+        async function testServerConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/`);
+                const data = await response.json();
+                console.log("Server status:", data.message);
+                return true;
+            } catch (error) {
+                console.error("Server connection error:", error);
+                alert("Cannot connect to server. Please check if the server is running.");
+                return false;
+            }
+        }
+
+        async function startEyeTracking() {
+            if (!await testServerConnection()) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/start-eye-tracking`, { 
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "start" })
+                });
+                const data = await response.json();
+                alert(data.message || data.error);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to start eye tracking");
+            }
+        }
+
+        async function stopEyeTracking() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/stop-eye-tracking`, { 
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "stop" })
+                });
+                const data = await response.json();
+                alert(data.message || data.error);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to stop eye tracking");
+            }
+        }
+
+        async function startVoiceControl() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/start-voice-control`, { 
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "start" }) 
+                });
+                const data = await response.json();
+                alert(data.message || data.error);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to start voice control");
+            }
+        }
+
+        async function stopVoiceControl() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/stop-voice-control`, { 
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "stop" }) 
+                });
+                const data = await response.json();
+                alert(data.message || data.error);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to stop voice control");
+            }
+        }
+
+        // Test connection when page loads
+        window.addEventListener('load', testServerConnection);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Control Your Laptop Hands-Free</h1>
+        
+        <div class="control-section">
+            <div class="eye-control">
+                <h2>Eye Control</h2>
+                <button onclick="startEyeTracking()">Start Eye Tracking</button>
+                <button class="stop" onclick="stopEyeTracking()">Stop Eye Tracking</button>
+            </div>
+
+            <div class="voice-control">
+                <h2>Voice Control</h2>
+                <button onclick="startVoiceControl()">Start Voice Control</button>
+                <button class="stop" onclick="stopVoiceControl()">Stop Voice Control</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
