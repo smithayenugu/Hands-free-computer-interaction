@@ -1,11 +1,6 @@
 # AI-Powered Hands-Free Computer Interaction 🖱️🎙️
 
 A contactless human-computer interaction system that replaces the traditional mouse and keyboard with **head movement, eye blinks, mouth gestures, and voice commands** — enabling users to control a computer entirely hands-free.
-
-Developed as a Major Project at **Rajiv Gandhi University of Knowledge Technologies (RGUKT), Basar**.
-
-> **Author:** Yenugu Smitha
-
 ---
 
 ## 📖 Table of Contents
